@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    JAR_NAME: myapp.jar
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+
+  build:
+    commands:
+      - echo "Compiling Java..."
+      - mkdir -p out
+      - javac -d out src/com/myapp/HelloHandler.java
+
+      - echo "Creating JAR..."
+      - jar -cvf $JAR_NAME -C out .
+
+  post_build:
+    commands:
+      - echo "Uploading to S3..."
+      - aws s3 cp $JAR_NAME s3://app-8175-s3-bucket/$JAR_NAME
+
+artifacts:
+  files:
+    - myapp.jar
