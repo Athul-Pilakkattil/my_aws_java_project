@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Lambda function deployment
+
+Resources:
+
+  MyLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: app-8175-lambda-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: lambda-logs
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+
+  MyLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: app-8175-lambda
+      Runtime: java21
+      Handler: com.myapp.HelloHandler::handleRequest
+      Role: !GetAtt MyLambdaExecutionRole.Arn
+      MemorySize: 512
+      Timeout: 15
+      Code:
+        S3Bucket: app-8175-s3-bucket    # 👈 hardcoded
+        S3Key: myapp.jar                        # 👈 hardcoded
