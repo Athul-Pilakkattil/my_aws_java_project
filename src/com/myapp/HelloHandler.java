@@ -19,7 +19,7 @@ public class HelloHandler {
         // HTML response
         String body = "<html>" +
                       "<body>" +
-                      "<h1>Hello, This is  " + name + "!</h1>" +
+                      "<h1>Hello world, This is  " + name + "!</h1>" +
                       "</body>" +
                       "</html>";
 
