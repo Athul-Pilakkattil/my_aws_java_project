@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    JAR_NAME: myapp.jar
+    JAR_NAME: myapp2.jar
 
 phases:
   install:

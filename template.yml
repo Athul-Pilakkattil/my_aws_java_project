@@ -18,4 +18,4 @@ Resources:
 
       Code:
         S3Bucket: app-8175-s3-bucket
-        S3Key: myapp.jar
+        S3Key: myapp2.jar
